@@ -1,0 +1,23 @@
+image:
+  repository: keystone6-app
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3000
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
+nginx:
+  service:
+    type: ClusterIP
+
+env:
+  DATABASE_URL: "mssql://sa:MinhaSenha@123@sqlserver:1433/keystonedb"

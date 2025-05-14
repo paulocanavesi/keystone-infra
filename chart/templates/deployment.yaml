@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keystone-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keystone-app
+  template:
+    metadata:
+      labels:
+        app: keystone-app
+    spec:
+      containers:
+        - name: keystone
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.env.DATABASE_URL }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
